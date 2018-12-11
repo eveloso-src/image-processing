@@ -186,6 +186,10 @@ public class WebCamPreviewController implements Initializable {
 	{
 		stopCamera = false;
 		startWebCamStream();
+		System.out.println("Comienzo");
+		//Grabber.grabb();
+		System.out.println("fin");
+		
 		btnStartCamera.setDisable(true);
 		btnStopCamera.setDisable(false);
 	}

@@ -13,15 +13,93 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<jsondoc_host>localhost</jsondoc_host>
+		<jsondoc_port>8080</jsondoc_port>
 	</properties>
 
-	<dependencies>
+<!-- 	<parent> -->
+<!-- 		<artifactId>webcam-capture-examples</artifactId> -->
+<!-- 		<groupId>com.github.sarxos</groupId> -->
+<!-- 		<version>0.3.13-SNAPSHOT</version> -->
+<!-- 	</parent> -->
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>com.github.sarxos</groupId> -->
-<!-- 			<artifactId>webcam-capture-driver-openimaj</artifactId> -->
-<!-- 			<version>0.3.12</version> -->
-<!-- 		</dependency> -->
+
+	<dependencies>
+		<dependency>
+			<groupId>com.github.sarxos</groupId>
+			<artifactId>webcam-capture</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>xuggle</groupId>
+			<artifactId>xuggle-xuggler</artifactId>
+			<version>3.0.660</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.sarxos</groupId>
+			<artifactId>webcam-capture</artifactId>
+			<version>0.3.11</version>
+		</dependency>
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-actor_2.11</artifactId>
+			<version>2.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-cluster-sharding_2.11</artifactId>
+			<version>2.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-cluster-tools_2.11</artifactId>
+			<version>2.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-cluster_2.11</artifactId>
+			<version>2.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-distributed-data-experimental_2.11</artifactId>
+			<version>2.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-persistence_2.11</artifactId>
+			<version>2.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-slf4j_2.11</artifactId>
+			<version>2.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-slf4j_2.11</artifactId>
+			<version>2.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>io.javaslang</groupId>
+			<artifactId>javaslang</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.bytedeco/javacv -->
+		<dependency>
+			<groupId>org.bytedeco</groupId>
+			<artifactId>javacv</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+
+
+		<!-- <dependency> -->
+		<!-- <groupId>com.github.sarxos</groupId> -->
+		<!-- <artifactId>webcam-capture-driver-openimaj</artifactId> -->
+		<!-- <version>0.3.12</version> -->
+		<!-- </dependency> -->
 
 		<dependency>
 			<groupId>com.github.sarxos</groupId>
@@ -37,4 +115,20 @@
 
 
 	</dependencies>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+				<version>3.6.1</version>
+			</plugin>
+
+		</plugins>
+	</build>
 </project>

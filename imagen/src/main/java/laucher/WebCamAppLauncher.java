@@ -21,7 +21,7 @@ public class WebCamAppLauncher extends Application {
 			e.printStackTrace();
 		}
 	    
-        Scene scene = new Scene(root, 900, 690);
+        Scene scene = new Scene(root, 800, 590);
     
         primaryStage.setTitle("WebCam Capture Sarxos API using JavaFx with FXML ");
         primaryStage.setScene(scene);

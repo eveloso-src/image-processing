@@ -19,18 +19,12 @@ public class Base {
 		WebcamUtils.capture(webcam, "test1", ImageUtils.FORMAT_JPG);
 		byte[] bytes = WebcamUtils.getImageBytes(webcam, "jpg");
 		System.out.println("Bytes length: " + bytes.length);
-
-		// save image in JPG format and return as byte buffer
-		ByteBuffer buffer = WebcamUtils.getImageByteBuffer(webcam, "jpg");
-		System.out.println("Buffer length: " + buffer.capacity());
-		
-//		webcam.open();
-//		try {
-//			ImageIO.write(webcam.getImage(), "PNG", new File("hello-world.png"));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+//
+//		// save image in JPG format and return as byte buffer
+//		ByteBuffer buffer = WebcamUtils.getImageByteBuffer(webcam, "jpg");
+//		System.out.println("Buffer length: " + buffer.capacity());
+//		
+//
 	}
 
 }
