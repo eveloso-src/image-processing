@@ -8,17 +8,21 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.nio.file.Files;
 import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStream;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
+import com.github.sarxos.webcam.WebcamUtils;
 import com.github.sarxos.webcam.util.jh.JHGrayFilter;
 import com.typesafe.config.ConfigFactory;
 
@@ -33,45 +37,29 @@ public class Grabber extends JFrame{
 
 	public Grabber() {
 		
-		
-		setSize(new Dimension(640, 480));
+		setSize(new Dimension(800, 600));
 		setVisible(true);
 		JButton botonGrabar = new JButton("Record");
-		botonGrabar.setBounds(50, 150, 95, 30);
-
-//		final CanvasFrame canvas = new CanvasFrame("Canvas caption", 1.0);
-//
-//		canvas.setSize(640,480);
-		// Request closing of the application when the image window is closed.
-//		canvas.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-		// Convert from OpenCV Mat to Java Buffered image for display
-//		final OpenCVFrameConverter converter = new OpenCVFrameConverter.ToMat();
-		// Show image on window.
-//		canvas.showImage(converter.convert(image));
 
 		JLabel l = new JLabel();
-		l.setBounds(50, 100, 250, 20);
 		l.setText("hola");
 		l.setBackground(Color.BLACK);
 
-//		JPanel panel = new JPanel();
-//		JPanel panel = new JPanel();
-//		panel.setBackground(Color.BLACK);
-//		panel.setSize(new Dimension(320, 240));
+		JPanel panel = new JPanel();
+		panel.setSize(new Dimension(320, 240));
 		ButtonListener listener = new ButtonListener();
 		botonGrabar.addActionListener(listener);
-		setLayout(new GridLayout());
-		add(botonGrabar);
-		
 		
 		final JPanel jPanelCamera = new JPanel();
 
-//		jTabbedPane1.addTab("Camera", jPanelCamera);
-
 		Webcam webcam = Webcam.getDefault();
-		webcam.setViewSize(WebcamResolution.VGA.getSize());
+//		webcam.setViewSize(WebcamResolution.VGA.getSize());
+		final ActorSystem system = ActorSystem.create("hello-from-akka", ConfigFactory.defaultApplication());
+//		webcam.setViewSize(new Dimension(640, 480));
 
+		final ActorRef ref = system.actorOf(Props.create(WebcamActor.class, webcam));
+
+		
 		WebcamPanel webcamPanel = new WebcamPanel(webcam);
 		webcamPanel.setFPSDisplayed(true);
 		webcamPanel.setDisplayDebugInfo(true);
@@ -79,52 +67,56 @@ public class Grabber extends JFrame{
 		webcamPanel.setMirrored(true);
 
 		jPanelCamera.add(webcamPanel);
-//		jPanelCamera.getParent().revalidate();
 
 		System.out.println("Camera OK");
-		add(jPanelCamera);
-//		add(panel);
-		add(l);
-//		frame.add(canvas);
+		getContentPane().add(jPanelCamera, SpringLayout.NORTH);
+		panel.add(l);
+		panel.add(botonGrabar);
+		getContentPane().add(panel, SpringLayout.SOUTH);
 		show();
 		
 		
-		
-		// Webcam.shutdown();
-//		Webcam webcam = Webcam.getDefault();
 		try {
 
-			final ActorSystem system = ActorSystem.create("hello-from-akka", ConfigFactory.defaultApplication());
-			webcam.setViewSize(new Dimension(640, 480));
-
-			// webcam.open();
-			final ActorRef ref = system.actorOf(Props.create(WebcamActor.class, webcam));
-
-			// final File file = new File("img_");
 
 			BufferedImage colorImage;
 			BufferedImage grayImage;
-			for (int i = 0; i < 30; i++) {
+			for (int i = 0; i < 10; i++) {
 				final Duration timeout = FiniteDuration.create("10s");
 				colorImage = (BufferedImage) result(ask(ref, GetImageMsg.OBJECT, timeout.toMillis()), timeout);
-				ImageIO.write(colorImage, "JPG", new File("img_" + i + ".jpg"));
+				ImageIO.write(colorImage, "bpm", new File("img_" + i + ".bmp"));
 				TimeUnit.MILLISECONDS.sleep(500);
 
+				File bwfile = new File("bw" + i + ".bmp");
 				// grayImage = new BufferedImage(colorImage.getWidth(), colorImage.getHeight(),
 				// BufferedImage.TYPE_INT_RGB);
-				ImageIO.write(transform(colorImage), "JPG", new File("bw" + i + ".jpg"));
+				ImageIO.write(transform(colorImage), "bmp", bwfile );
 				// g = grayImage.createGraphics();
 				// g.drawImage(colorImage, 0, 0, null);
 
+//				byte[] bytes = WebcamUtils.getImageBytes(webcam, "jpg");
+//				for(int j = 0; j < bytes.length; j++) {
+//					System.out.println(bytes[j]);
+//				}
+
+				
+//				File fi = new File("bw5.bmp");
+				byte[] fileContent = Files.readAllBytes(bwfile.toPath());
+				for (int k=0; k < fileContent.length; k ++) {
+					
+					System.out.print(fileContent[k]  + " ");
+				}
+				System.out.println("-----");
 			}
 
 			// JOptionPane.showMessageDialog(null, "Image has been saved in file: " + file);
 
-			system.terminate();
+//			system.terminate();
 		} catch (Exception e) {
+			System.out.println(e);
 
 		} finally {
-			webcam.close();
+//			webcam.close();
 
 		}
 	}

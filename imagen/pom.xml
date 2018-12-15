@@ -32,11 +32,11 @@
 			<artifactId>webcam-capture</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>xuggle</groupId>
-			<artifactId>xuggle-xuggler</artifactId>
-			<version>3.0.660</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>xuggle</groupId> -->
+<!-- 			<artifactId>xuggle-xuggler</artifactId> -->
+<!-- 			<version>3.0.660</version> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>com.github.sarxos</groupId>
 			<artifactId>webcam-capture</artifactId>
