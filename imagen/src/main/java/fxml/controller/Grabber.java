@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,11 +34,11 @@ import akka.actor.UntypedActor;
 import scala.concurrent.duration.Duration;
 import scala.concurrent.duration.FiniteDuration;
 
-public class Grabber extends JFrame{
+public class Grabber extends JFrame {
 
 	public Grabber() {
-		
-		setSize(new Dimension(800, 600));
+
+		setSize(new Dimension(1000, 600));
 		setVisible(true);
 		JButton botonGrabar = new JButton("Record");
 
@@ -46,11 +47,12 @@ public class Grabber extends JFrame{
 		l.setBackground(Color.BLACK);
 
 		JPanel panel = new JPanel();
-		panel.setSize(new Dimension(320, 240));
+		panel.setSize(new Dimension(640, 480));
 		ButtonListener listener = new ButtonListener();
 		botonGrabar.addActionListener(listener);
-		
+
 		final JPanel jPanelCamera = new JPanel();
+		final JPanel jPanelCamera2 = new JPanel();
 
 		Webcam webcam = Webcam.getDefault();
 //		webcam.setViewSize(WebcamResolution.VGA.getSize());
@@ -59,7 +61,6 @@ public class Grabber extends JFrame{
 
 		final ActorRef ref = system.actorOf(Props.create(WebcamActor.class, webcam));
 
-		
 		WebcamPanel webcamPanel = new WebcamPanel(webcam);
 		webcamPanel.setFPSDisplayed(true);
 		webcamPanel.setDisplayDebugInfo(true);
@@ -67,30 +68,37 @@ public class Grabber extends JFrame{
 		webcamPanel.setMirrored(true);
 
 		jPanelCamera.add(webcamPanel);
+//		jPanelCamera2.add(new JLabel("east"));
 
 		System.out.println("Camera OK");
 		getContentPane().add(jPanelCamera, SpringLayout.NORTH);
+		getContentPane().add(jPanelCamera2, SpringLayout.EAST);
+//		getContentPane().add(new JLabel("west"), SpringLayout.WEST);
 		panel.add(l);
 		panel.add(botonGrabar);
 		getContentPane().add(panel, SpringLayout.SOUTH);
 		show();
-		
-		
-		try {
 
+		try {
 
 			BufferedImage colorImage;
 			BufferedImage grayImage;
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < 20; i++) {
 				final Duration timeout = FiniteDuration.create("10s");
 				colorImage = (BufferedImage) result(ask(ref, GetImageMsg.OBJECT, timeout.toMillis()), timeout);
-				ImageIO.write(colorImage, "bpm", new File("img_" + i + ".bmp"));
+				ImageIO.write(colorImage, "jpg", new File("img_" + i + ".jpg"));
 				TimeUnit.MILLISECONDS.sleep(500);
 
-				File bwfile = new File("bw" + i + ".bmp");
+//				jPanelCamera2.removeAll();
+				if (jPanelCamera2.getComponents().length == 0) {
+
+					jPanelCamera2.add(new JLabel(new ImageIcon(colorImage)));
+//					jPanelCamera2.setSize(320, 240);
+				}
+				File bwfile = new File("bw" + i + ".jpg");
 				// grayImage = new BufferedImage(colorImage.getWidth(), colorImage.getHeight(),
 				// BufferedImage.TYPE_INT_RGB);
-				ImageIO.write(transform(colorImage), "bmp", bwfile );
+				ImageIO.write(transform(colorImage), "jpg", bwfile);
 				// g = grayImage.createGraphics();
 				// g.drawImage(colorImage, 0, 0, null);
 
@@ -99,14 +107,14 @@ public class Grabber extends JFrame{
 //					System.out.println(bytes[j]);
 //				}
 
-				
-//				File fi = new File("bw5.bmp");
+//				File fi = new File("bw5.jpg");
 				byte[] fileContent = Files.readAllBytes(bwfile.toPath());
-				for (int k=0; k < fileContent.length; k ++) {
-					
-					System.out.print(fileContent[k]  + " ");
+				for (int k = 0; k < fileContent.length; k++) {
+
+					System.out.println("length: " + fileContent.length);
+					System.out.print(fileContent[k] + ". ");
 				}
-				System.out.println("-----");
+//				System.out.println("-----");
 			}
 
 			// JOptionPane.showMessageDialog(null, "Image has been saved in file: " + file);
@@ -166,7 +174,7 @@ public class Grabber extends JFrame{
 
 	// public static void grabb() {
 	public static void main(String[] args) {
-		
+
 		Grabber g = new Grabber();
 	}
 
