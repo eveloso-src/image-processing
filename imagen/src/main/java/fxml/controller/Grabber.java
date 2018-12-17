@@ -3,7 +3,7 @@ package fxml.controller;
 import static akka.pattern.Patterns.ask;
 import static scala.concurrent.Await.result;
 
-import java.awt.Color;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
@@ -34,7 +34,7 @@ public class Grabber extends JFrame{
 	public Grabber() {
 		
 		
-		setSize(new Dimension(640, 480));
+		//setSize(new Dimension(640, 480));
 		setVisible(true);
 		JButton botonGrabar = new JButton("Record");
 		botonGrabar.setBounds(50, 150, 95, 30);
@@ -50,10 +50,10 @@ public class Grabber extends JFrame{
 		// Show image on window.
 //		canvas.showImage(converter.convert(image));
 
-		JLabel l = new JLabel();
-		l.setBounds(50, 100, 250, 20);
-		l.setText("hola");
-		l.setBackground(Color.BLACK);
+//		JLabel l = new JLabel();
+//		l.setBounds(50, 100, 250, 20);
+//		l.setText("hola");
+//		l.setBackground(Color.BLACK);
 
 //		JPanel panel = new JPanel();
 //		JPanel panel = new JPanel();
@@ -61,12 +61,14 @@ public class Grabber extends JFrame{
 //		panel.setSize(new Dimension(320, 240));
 		ButtonListener listener = new ButtonListener();
 		botonGrabar.addActionListener(listener);
-		setLayout(new GridLayout());
-		add(botonGrabar);
+		getContentPane().setLayout(new GridLayout());
+		
 		
 		
 		final JPanel jPanelCamera = new JPanel();
+		//jPanelCamera.setLayout(null);
 
+		jPanelCamera.setSize(new Dimension(640, 480));
 //		jTabbedPane1.addTab("Camera", jPanelCamera);
 
 		Webcam webcam = Webcam.getDefault();
@@ -82,9 +84,15 @@ public class Grabber extends JFrame{
 //		jPanelCamera.getParent().revalidate();
 
 		System.out.println("Camera OK");
-		add(jPanelCamera);
+		add(jPanelCamera,  BorderLayout.CENTER);
+		add(new JLabel(), BorderLayout.EAST);
+		add(new JLabel(), BorderLayout.WEST);
+
+//		add(new JLabel(), BorderLayout.CENTER);
+
+		add(botonGrabar, BorderLayout.SOUTH);
 //		add(panel);
-		add(l);
+//		add(l);
 //		frame.add(canvas);
 		show();
 		
@@ -120,62 +128,13 @@ public class Grabber extends JFrame{
 
 			// JOptionPane.showMessageDialog(null, "Image has been saved in file: " + file);
 
-			system.terminate();
+			//system.terminate();
 		} catch (Exception e) {
 
 		} finally {
-			webcam.close();
+			//webcam.close();
 
 		}
 	}
-
-	static enum GetImageMsg {
-		OBJECT;
-	}
-
-	static class WebcamActor extends UntypedActor {
-
-		final Webcam webcam;
-
-		public WebcamActor(Webcam webcam) {
-			this.webcam = webcam;
-		}
-
-		@Override
-		public void preStart() throws Exception {
-			webcam.setViewSize(WebcamResolution.VGA.getSize());
-			webcam.open();
-		}
-
-		@Override
-		public void postStop() throws Exception {
-			webcam.close();
-		}
-
-		@Override
-		public void onReceive(Object msg) throws Exception {
-			if (msg instanceof GetImageMsg) {
-				sender().tell(getImage(), self());
-			} else {
-				unhandled(msg);
-			}
-		}
-
-		public BufferedImage getImage() {
-			return webcam.getImage();
-		}
-	}
-
-	private static final JHGrayFilter GRAY = new JHGrayFilter();
-
-	public BufferedImage transform(BufferedImage image) {
-		return GRAY.filter(image, null);
-	}
-
-	// public static void grabb() {
-	public static void main(String[] args) {
-		
-		Grabber g = new Grabber();
-	}
-
+	
 }

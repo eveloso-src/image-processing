@@ -35,6 +35,10 @@ public class WebCamPreviewController implements Initializable {
 	@FXML BorderPane bpWebCamPaneHolder;
 	@FXML FlowPane fpBottomPane;
 	@FXML ImageView imgWebCamCapturedImage;
+
+	@FXML ImageView imgWebCamCapturedImage2;
+	@FXML ImageView imgWebCamCapturedImage3;
+	
 	private BufferedImage grabbedImage;
 //	private WebcamPanel selWebCamPanel = null;
 	private Webcam selWebCam = null;
@@ -59,6 +63,8 @@ public class WebCamPreviewController implements Initializable {
 			webCamCounter ++;
 		}
 		cbCameraOptions.setItems(options);
+//		cbCameraOptions.getSelectionModel().select(0);
+//		initializeWebCam(webCamIndex);
 		cbCameraOptions.setPromptText(cameraListPromptText);
 		cbCameraOptions.getSelectionModel().selectedItemProperty().addListener(new  ChangeListener<WebCamInfo>() {
 
@@ -84,14 +90,27 @@ public class WebCamPreviewController implements Initializable {
 	}
 	protected void setImageViewSize() {
 		
-		double height = bpWebCamPaneHolder.getHeight();
-		double width  = bpWebCamPaneHolder.getWidth();
+		double height = 640; //bpWebCamPaneHolder.getHeight();
+		double width  = 480; //bpWebCamPaneHolder.getWidth();
 		imgWebCamCapturedImage.setFitHeight(height);
 		imgWebCamCapturedImage.setFitWidth(width);
 		imgWebCamCapturedImage.prefHeight(height);
 		imgWebCamCapturedImage.prefWidth(width);
 		imgWebCamCapturedImage.setPreserveRatio(true);
+
 		
+
+		imgWebCamCapturedImage2.setFitHeight(height);
+		imgWebCamCapturedImage2.setFitWidth(width);
+		imgWebCamCapturedImage2.prefHeight(height);
+		imgWebCamCapturedImage2.prefWidth(width);
+		imgWebCamCapturedImage2.setPreserveRatio(true);
+		
+		imgWebCamCapturedImage3.setFitHeight(height);
+		imgWebCamCapturedImage3.setFitWidth(width);
+		imgWebCamCapturedImage3.prefHeight(height);
+		imgWebCamCapturedImage3.prefWidth(width);
+		imgWebCamCapturedImage3.setPreserveRatio(true);
 	}
 	protected void initializeWebCam(final int webCamIndex) {
 		
@@ -163,6 +182,8 @@ public class WebCamPreviewController implements Initializable {
 		th.setDaemon(true);
 		th.start();
 		imgWebCamCapturedImage.imageProperty().bind(imageProperty);
+		imgWebCamCapturedImage2.imageProperty().bind(imageProperty);
+		imgWebCamCapturedImage3.imageProperty().bind(imageProperty);
 		
 	}
 

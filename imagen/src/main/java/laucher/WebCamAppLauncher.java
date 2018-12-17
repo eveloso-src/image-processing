@@ -15,14 +15,15 @@ public class WebCamAppLauncher extends Application {
 		
 		Parent root = null;
 		try {
-			root = FXMLLoader.load(getClass().getResource("/fxml/gui/WebCamPreview.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/fxml/gui/WebCamPreview2.fxml"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	    
-        Scene scene = new Scene(root, 800, 590);
+        Scene scene = new Scene(root, 900, 990);
     
+        primaryStage.setMaximized(true);
         primaryStage.setTitle("WebCam Capture Sarxos API using JavaFx with FXML ");
         primaryStage.setScene(scene);
         primaryStage.centerOnScreen();

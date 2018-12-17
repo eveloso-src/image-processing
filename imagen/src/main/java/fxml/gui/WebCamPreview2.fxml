@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="690.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.controller.WebCamPreviewController">
+  <!-- TODO Add Nodes -->
+  <bottom>
+    <FlowPane fx:id="fpBottomPane" alignment="CENTER" columnHalignment="CENTER" hgap="50.0" prefHeight="80.0" prefWidth="200.0" style="-fx-background-color:#ccc;">
+      <children>
+        <Button fx:id="btnStartCamera" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#startCamera" prefHeight="50.0" prefWidth="190.0" text="Start Camera">
+          <font>
+            <Font name="Segoe UI" size="18.0" fx:id="x1" />
+          </font>
+        </Button>
+        <Button fx:id="btnStopCamera" font="$x1" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#stopCamera" prefHeight="50.0" prefWidth="190.0" text="Stop Camera" />
+        <Button fx:id="btnDisposeCamera" font="$x1" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#disposeCamera" prefHeight="50.0" prefWidth="190.0" text="Dispose Camera" />
+      </children>
+    </FlowPane>
+  </bottom>
+  <top>
+    <GridPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" style="-fx-background-color:#ccc;&#10;">
+      <children>
+            <ComboBox fx:id="cbCameraOptions" prefHeight="38.0" prefWidth="357.0" style="-fx-font-size: 18px;" GridPane.valignment="BOTTOM" />
+        <Label font="$x1" text="Camara" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+          <GridPane.margin>
+            <Insets left="5.0" right="10.0" />
+          </GridPane.margin>
+        </Label>
+        
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="795.0" minWidth="10.0" prefWidth="538.4" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="502.0" minWidth="10.0" prefWidth="362.4" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+  </top>
+   <right>
+      <ImageView fx:id="imgWebCamCapturedImage2" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+   </right>
+   <left>
+      <ImageView fx:id="imgWebCamCapturedImage3" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+   </left>
+   <center>
+      <ImageView fx:id="imgWebCamCapturedImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
