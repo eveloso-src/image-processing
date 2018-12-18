@@ -4,6 +4,7 @@ import static akka.pattern.Patterns.ask;
 import static scala.concurrent.Await.result;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
@@ -37,33 +38,19 @@ import scala.concurrent.duration.FiniteDuration;
 public class Grabber extends JFrame {
 
 	public Grabber() {
-<<<<<<< HEAD
-		
-		
-		//setSize(new Dimension(640, 480));
-=======
 
 		setSize(new Dimension(1000, 600));
->>>>>>> 0836fac1cbb25703bf7010d400d1c412bfc09e31
 		setVisible(true);
 		JButton botonGrabar = new JButton("Record");
 
-<<<<<<< HEAD
-//		JLabel l = new JLabel();
-//		l.setBounds(50, 100, 250, 20);
-//		l.setText("hola");
-//		l.setBackground(Color.BLACK);
-=======
 		JLabel l = new JLabel();
 		l.setText("hola");
 		l.setBackground(Color.BLACK);
->>>>>>> 0836fac1cbb25703bf7010d400d1c412bfc09e31
 
 		JPanel panel = new JPanel();
 		panel.setSize(new Dimension(640, 480));
-		ButtonListener listener = new ButtonListener();
-		botonGrabar.addActionListener(listener);
-<<<<<<< HEAD
+//		ButtonListener listener = new ButtonListener();
+//		botonGrabar.addActionListener(listener);
 		getContentPane().setLayout(new GridLayout());
 		
 		
@@ -72,12 +59,7 @@ public class Grabber extends JFrame {
 		//jPanelCamera.setLayout(null);
 
 		jPanelCamera.setSize(new Dimension(640, 480));
-//		jTabbedPane1.addTab("Camera", jPanelCamera);
-=======
-
-		final JPanel jPanelCamera = new JPanel();
 		final JPanel jPanelCamera2 = new JPanel();
->>>>>>> 0836fac1cbb25703bf7010d400d1c412bfc09e31
 
 		Webcam webcam = Webcam.getDefault();
 //		webcam.setViewSize(WebcamResolution.VGA.getSize());
@@ -96,25 +78,12 @@ public class Grabber extends JFrame {
 //		jPanelCamera2.add(new JLabel("east"));
 
 		System.out.println("Camera OK");
-<<<<<<< HEAD
-		add(jPanelCamera,  BorderLayout.CENTER);
-		add(new JLabel(), BorderLayout.EAST);
-		add(new JLabel(), BorderLayout.WEST);
-
-//		add(new JLabel(), BorderLayout.CENTER);
-
-		add(botonGrabar, BorderLayout.SOUTH);
-//		add(panel);
-//		add(l);
-//		frame.add(canvas);
-=======
 		getContentPane().add(jPanelCamera, SpringLayout.NORTH);
 		getContentPane().add(jPanelCamera2, SpringLayout.EAST);
 //		getContentPane().add(new JLabel("west"), SpringLayout.WEST);
 		panel.add(l);
 		panel.add(botonGrabar);
 		getContentPane().add(panel, SpringLayout.SOUTH);
->>>>>>> 0836fac1cbb25703bf7010d400d1c412bfc09e31
 		show();
 
 		try {
@@ -157,18 +126,10 @@ public class Grabber extends JFrame {
 
 			// JOptionPane.showMessageDialog(null, "Image has been saved in file: " + file);
 
-<<<<<<< HEAD
-			//system.terminate();
-=======
-//			system.terminate();
->>>>>>> 0836fac1cbb25703bf7010d400d1c412bfc09e31
 		} catch (Exception e) {
 			System.out.println(e);
 
 		} finally {
-<<<<<<< HEAD
-			//webcam.close();
-=======
 //			webcam.close();
 
 		}
@@ -196,13 +157,13 @@ public class Grabber extends JFrame {
 		public void postStop() throws Exception {
 			webcam.close();
 		}
->>>>>>> 0836fac1cbb25703bf7010d400d1c412bfc09e31
 
+		@Override
+		public void onReceive(Object arg0) throws Exception {
+			// TODO Auto-generated method stub
+			
 		}
 	}
-<<<<<<< HEAD
-	
-=======
 
 	private static final JHGrayFilter GRAY = new JHGrayFilter();
 
@@ -216,5 +177,4 @@ public class Grabber extends JFrame {
 		Grabber g = new Grabber();
 	}
 
->>>>>>> 0836fac1cbb25703bf7010d400d1c412bfc09e31
 }
