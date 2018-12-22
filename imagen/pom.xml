@@ -34,6 +34,21 @@
 
 
 	<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/net.sf.jchart2d/jchart2d -->
+		<dependency>
+			<groupId>net.sf.jchart2d</groupId>
+			<artifactId>jchart2d</artifactId>
+			<version>3.3.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/jfree/jfreechart -->
+		<dependency>
+			<groupId>jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.0.13</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.github.jai-imageio</groupId>
 			<artifactId>jai-imageio-core</artifactId>

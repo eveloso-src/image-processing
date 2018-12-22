@@ -43,7 +43,7 @@ public class ImageManager {
 
 //			ImageIO.write(img1, "jpg", new File("imgs/bytes_"  + ".jpg"));
 
-			out = new BufferedOutputStream(new FileOutputStream("imgs/bytes_"  + ".jpg"));
+			out = new BufferedOutputStream(new FileOutputStream("imgs/bytes_2.jpg"));
 			out.write(fileContent);
 		} finally {
 			if (out != null)
