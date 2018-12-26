@@ -41,7 +41,7 @@ public class HistogramSwing extends JPanel {
         panel.add(new JLabel(new ImageIcon(gray)));
         this.setLayout(new BorderLayout());
         this.add(panel, BorderLayout.WEST);
-        this.add(createChart(gray, 20), BorderLayout.CENTER);
+//        this.add(createChart(gray, 20), BorderLayout.CENTER);
     }
 
     private BufferedImage getImage(String name) {

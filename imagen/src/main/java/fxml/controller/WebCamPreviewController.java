@@ -95,7 +95,7 @@ public class WebCamPreviewController implements Initializable {
 			WebCamInfo webCamInfo = new WebCamInfo();
 			webCamInfo.setWebCamIndex(webCamCounter);
 			webCamInfo.setWebCamName(webcam.getName());
-			webcam.setViewSize(new Dimension(320, 240));
+			webcam.setViewSize(new Dimension(640, 480));
 			options.add(webCamInfo);
 			webCamCounter++;
 		}
@@ -200,7 +200,7 @@ public class WebCamPreviewController implements Initializable {
 							baos.flush();
 							byte[] imageInByte = baos.toByteArray();
 							baos.close();
-							for (int i = 0; i < 320; i++) {
+							for (int i = 0; i < 640; i++) {
 
 								if (i % 2 == 0) {
 									imageInByte[i] = (byte) 125;
@@ -248,7 +248,7 @@ public class WebCamPreviewController implements Initializable {
 		th.start();
 		imgWebCamCapturedImage.imageProperty().bind(imageProperty);
 		imgWebCamCapturedImage2.imageProperty().bind(imageProperty2);
-		imgWebCamCapturedImage3.imageProperty().bind(imageProperty);
+		imgWebCamCapturedImage3.imageProperty().bind(imageProperty2);
 
 	}
 

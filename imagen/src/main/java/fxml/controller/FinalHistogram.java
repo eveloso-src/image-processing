@@ -52,7 +52,7 @@ public class FinalHistogram extends JPanel {
 		Double d1;
 		for (int x = 0; x < bi.getWidth(); x++) {
 			for (int y = 0; y < bi.getHeight(); y++) {
-				pixel = bi.getRaster().getPixel(x, y, null);
+//				pixel = bi.getRaster().getPixel(x, y, null);
 				d = (0.2125 * pixel[0]) + (0.7154 * pixel[1]) + (0.072 * pixel[2]);
 				k = (int) (d / 256);
 				sbins[k]++;

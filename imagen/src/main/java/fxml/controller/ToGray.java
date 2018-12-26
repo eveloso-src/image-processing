@@ -41,7 +41,7 @@ public class ToGray {
 			for (int j = 0; j < height; j++) {
 				value = pixel[i][j] << 16 | pixel[i][j] << 8 | pixel[i][j];
 
-				if (j < 150) {
+				if (j < 50) {
 					value = j << 16 | j << 8 | j;
 
 				}
