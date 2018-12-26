@@ -73,6 +73,7 @@ public class WebCamPreviewController implements Initializable {
 	ImageView imgWebCamCapturedImage3;
 
 	private BufferedImage grabbedImage;
+	private BufferedImage bwImage;
 	// private WebcamPanel selWebCamPanel = null;
 	private Webcam selWebCam = null;
 
@@ -80,6 +81,7 @@ public class WebCamPreviewController implements Initializable {
 
 	private boolean stopCamera = false;
 	private ObjectProperty<Image> imageProperty = new SimpleObjectProperty<Image>();
+	private ObjectProperty<Image> imageProperty2 = new SimpleObjectProperty<Image>();
 
 	private String cameraListPromptText = "Seleccion Camara";
 
@@ -186,9 +188,12 @@ public class WebCamPreviewController implements Initializable {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_hh_mm_ss_SSS");
 				ByteArrayOutputStream baos;
 				InputStream bais;
+				ToGray tg = new ToGray();
+				
 				while (!stopCamera) {
 					try {
 						if ((grabbedImage = webcamDefault.getImage()) != null) {
+							bwImage = tg.convertBufferedImage(grabbedImage);
 
 							baos = new ByteArrayOutputStream();
 							ImageIO.write(grabbedImage, "jpg", baos);
@@ -208,14 +213,18 @@ public class WebCamPreviewController implements Initializable {
 							// bais = new ByteArrayInputStream(imageInByte);
 							// grabbedImage = ImageIO.read(bais);
 
-							ImageIO.write(grabbedImage, "jpg", new File("imgs/img_" + sdf.format(new Date()) + ".jpg"));
+							String file = "imgs/img_" + sdf.format(new Date()) + ".jpg";
+							ImageIO.write(grabbedImage, "jpg", new File(file));
 							Platform.runLater(new Runnable() {
 								// @Override
 								public void run() {
 									final Image mainiamge = SwingFXUtils.toFXImage(grabbedImage, null);
-									Color result = mainiamge.getPixelReader().getColor(0, 0);
-									System.out.println("result: " + result);
+									final Image mainiamge2 = SwingFXUtils.toFXImage(bwImage, null);
+//									Color result = mainiamge.getPixelReader().getColor(0, 0);
+//									System.out.println("result: " + result);
 									imageProperty.set(mainiamge);
+									imageProperty2.set(mainiamge2);
+									
 								}
 							});
 
@@ -238,7 +247,7 @@ public class WebCamPreviewController implements Initializable {
 		th.setDaemon(true);
 		th.start();
 		imgWebCamCapturedImage.imageProperty().bind(imageProperty);
-		imgWebCamCapturedImage2.imageProperty().bind(imageProperty);
+		imgWebCamCapturedImage2.imageProperty().bind(imageProperty2);
 		imgWebCamCapturedImage3.imageProperty().bind(imageProperty);
 
 	}
