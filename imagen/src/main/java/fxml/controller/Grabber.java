@@ -6,14 +6,12 @@ import static scala.concurrent.Await.result;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageOutputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,7 +22,6 @@ import javax.swing.SpringLayout;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
-import com.github.sarxos.webcam.WebcamUtils;
 import com.github.sarxos.webcam.util.jh.JHGrayFilter;
 import com.typesafe.config.ConfigFactory;
 
