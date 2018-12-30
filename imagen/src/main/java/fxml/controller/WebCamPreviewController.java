@@ -1,32 +1,20 @@
 package fxml.controller;
 
-import static akka.pattern.Patterns.ask;
-import static scala.concurrent.Await.result;
-
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.util.jh.JHGrayFilter;
-import com.typesafe.config.ConfigFactory;
 
-import akka.actor.ActorRef;
-import akka.actor.ActorSystem;
-import akka.actor.Props;
-import fxml.controller.Grabber.GetImageMsg;
-import fxml.controller.Grabber.WebcamActor;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -45,9 +33,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.paint.Color;
-import scala.concurrent.duration.Duration;
-import scala.concurrent.duration.FiniteDuration;
 
 @SuppressWarnings("restriction")
 public class WebCamPreviewController implements Initializable {
@@ -200,16 +185,16 @@ public class WebCamPreviewController implements Initializable {
 							baos.flush();
 							byte[] imageInByte = baos.toByteArray();
 							baos.close();
-							for (int i = 0; i < 640; i++) {
-
-								if (i % 2 == 0) {
-									imageInByte[i] = (byte) 125;
-
-								} else {
-									imageInByte[i] = (byte) 0;
-
-								}
-							}
+//							for (int i = 0; i < 640; i++) {
+//
+//								if (i % 2 == 0) {
+//									imageInByte[i] = (byte) 125;
+//
+//								} else {
+//									imageInByte[i] = (byte) 0;
+//
+//								}
+//							}
 							// bais = new ByteArrayInputStream(imageInByte);
 							// grabbedImage = ImageIO.read(bais);
 
