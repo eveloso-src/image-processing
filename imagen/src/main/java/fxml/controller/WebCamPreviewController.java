@@ -3,14 +3,12 @@ package fxml.controller;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayDeque;
+import java.util.List;
 import java.util.ResourceBundle;
-
-import javax.imageio.ImageIO;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.util.jh.JHGrayFilter;
@@ -115,8 +113,8 @@ public class WebCamPreviewController implements Initializable {
 	protected void setImageViewSize() {
 
 		System.out.println("640x480");
-		double height = 640; // bpWebCamPaneHolder.getHeight();
-		double width = 480; // bpWebCamPaneHolder.getWidth();
+		double height = 1000; // bpWebCamPaneHolder.getHeight();
+		double width = 1000; // bpWebCamPaneHolder.getWidth();
 		imgWebCamCapturedImage.setFitHeight(height);
 		imgWebCamCapturedImage.setFitWidth(width);
 		imgWebCamCapturedImage.prefHeight(height);
@@ -170,36 +168,20 @@ public class WebCamPreviewController implements Initializable {
 
 			@Override
 			protected Void call() throws Exception {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_hh_mm_ss_SSS");
-				ByteArrayOutputStream baos;
-				InputStream bais;
-				ToGray tg = new ToGray();
+//				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_hh_mm_ss_SSS");
+//				ByteArrayOutputStream baos;
+//				InputStream bais;
+//				ToGray tg = new ToGray();
+
+				ArrayDeque<BufferedImage>imagenes = new ArrayDeque<BufferedImage>(1000);
 				
 				while (!stopCamera) {
 					try {
 						if ((grabbedImage = webcamDefault.getImage()) != null) {
-							bwImage = tg.convertBufferedImage(grabbedImage);
+							bwImage = ToGray.convertBufferedImage(grabbedImage, imagenes);
 
-							baos = new ByteArrayOutputStream();
-							ImageIO.write(grabbedImage, "jpg", baos);
-							baos.flush();
-							byte[] imageInByte = baos.toByteArray();
-							baos.close();
-//							for (int i = 0; i < 640; i++) {
-//
-//								if (i % 2 == 0) {
-//									imageInByte[i] = (byte) 125;
-//
-//								} else {
-//									imageInByte[i] = (byte) 0;
-//
-//								}
-//							}
-							// bais = new ByteArrayInputStream(imageInByte);
-							// grabbedImage = ImageIO.read(bais);
-
-							String file = "imgs/img_" + sdf.format(new Date()) + ".jpg";
-							ImageIO.write(grabbedImage, "jpg", new File(file));
+//							String file = "imgs/img_" + sdf.format(new Date()) + ".jpg";
+//							ImageIO.write(grabbedImage, "jpg", new File(file));
 							Platform.runLater(new Runnable() {
 								// @Override
 								public void run() {
@@ -213,7 +195,7 @@ public class WebCamPreviewController implements Initializable {
 								}
 							});
 
-							grabbedImage.flush();
+//							grabbedImage.flush();
 
 						}
 					} catch (Exception e) {
